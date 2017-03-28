@@ -1,0 +1,18 @@
+<%= render "layouts/header" %>
+<div class="jumbotron">
+
+<h2>show_student</h2>
+<p><%= @student.name %></p>
+
+<% if !@student.class_rooms.empty? %>
+  <h2>show classes</h2>
+  <p><%= @student.class_rooms.first.name %></p>
+  <h2>show teacher</h2>
+  <ul>
+  <% @student.class_rooms.first.teachers.each do |tc| %>
+    <li><%= tc.name %></li>
+  <% end %>
+</ul>
+<% end %>
+
+</div>

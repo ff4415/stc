@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170324021338) do
+ActiveRecord::Schema.define(version: 20170324085851) do
 
   create_table "class_rooms", force: :cascade do |t|
     t.string   "name"
@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20170324021338) do
     t.datetime "match_user_and_classroom_date"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
-    t.string   "type"
   end
 
   add_index "match_user_and_classrooms", ["class_room_id"], name: "index_match_user_and_classrooms_on_class_room_id"
@@ -34,8 +33,10 @@ ActiveRecord::Schema.define(version: 20170324021338) do
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.boolean  "admin"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "password_digest"
+    t.string   "type"
   end
 
 end

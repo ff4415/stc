@@ -1,0 +1,15 @@
+<%= render "layouts/header" %>
+<h2>show teacher</h2>
+<p><%= @teacher.name %></p>
+
+<% if !@teacher.class_rooms.empty? %>
+  <h2>show class_room</h2>
+  <p><%= @teacher.class_rooms.first.name %></p>
+
+  <h2>show students</h2>
+  <ul>
+    <% @teacher.class_rooms.first.students.each do |st| %>
+      <li><%= st.name %></li>
+    <% end %>
+  </ul>
+<% end %>

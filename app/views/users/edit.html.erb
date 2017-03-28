@@ -1,0 +1,13 @@
+
+
+
+<%= form_tag(user_path(@user), method: :patch, html: {class: "form-signin"}) do %>
+<h4 class="form-signin-heading">assign a class_room to this mate</h4>
+  <%#= label_tag(:name, 'name')%>
+  <%= select("classroom", "id", ClassRoom.all.collect {|c| [ c.name, c.id ] }, { include_blank: true },  class: "form-control") %>
+  <br>
+  <%= submit_tag "assign class_room", class: "btn btn-primary" %>
+<% end %>
+<br>
+<br>
+<%= link_to 'show all class_rooms', user_path %>

@@ -1,0 +1,25 @@
+
+<%= form_for @user, html: {class: "form-signin"} do |f| %>
+  <h2 class="form-signin-heading">Sign Up</h2>
+  <%= f.label :name %>
+  <%= f.text_field :name, class: "form-control" %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password, class: "form-control" %>
+
+  <%= f.label :password_confirmation, "Confirmation" %>
+  <%= f.password_field :password_confirmation, class: "form-control" %>
+
+  <%= f.radio_button(:type, "Teacher") %>
+  <%= f.label(:type, "sign up as a teacher") %>
+  <br>
+  <%= f.radio_button(:type, "Student", checked: true) %>
+  <%= f.label(:type, "sign up as a student") %>
+  <br>
+  <%= f.check_box(:admin, {}, "true", "false") %>
+  <%= f.label(:admin, "sign as admin") %>
+<%= f.submit "Create my account", class: "btn btn-1g btn-primary btn-block" %>
+<br>
+<br>
+<p>login <%= link_to 'log in',login_path %></p>
+<% end %>

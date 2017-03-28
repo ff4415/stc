@@ -1,0 +1,115 @@
+<%= render "layouts/header" %>
+
+<div class="jumbotron">
+
+<h1>admin Settings</h1>
+<hr>
+<h2>admin's name</h2>
+<p>
+  <%= current_user.name %>
+</p>
+<hr>
+<table class="table">
+  <caption>All students</caption>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>class</th>
+      <th>change class_room</th>
+      <th>delete this student</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @students.each do |mate| %>
+    <tr>
+      <th scope="row"><%= mate.id %></th>
+      <th><%= mate.name %></th>
+      <% if !mate.class_rooms.empty? %>
+      <th><%= mate.class_rooms.first.name %></th>
+      <% else %>
+      <th>No class!</th>
+      <% end %>
+      <th><%= link_to 'change class', edit_user_path(mate) %></th>
+      <th><%= link_to 'delete', user_path(mate.id), method: :delete %></th>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<table class="table">
+  <caption>All teachers</caption>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>class</th>
+      <th>change class_room</th>
+      <th>delete this teacher</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @teachers.each do |tc| %>
+      <tr>
+        <th scope="row"><%= tc.id %></th>
+        <th scope="row"><%= tc.name %></th>
+        <% if !tc.class_rooms.empty? %>
+          <th scope="row"> <%= tc.class_rooms.first.name %></th>
+          <% else %>
+          <th scope="row">No class!</th>
+        <% end %>
+        <th><%= link_to 'change class', edit_user_path(tc) %></th>
+        <th><%= link_to 'delete', user_path(tc.id), method: :delete %></th>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>class_room name</h3>
+<table class="table">
+  <caption>All class_rooms</caption>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>amount of Stu</th>
+      <th>amount of Tch</th>
+      <th>delete this class_room</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @class_rooms.each do |room| %>
+    <tr>
+      <th><%= room.id %></th>
+      <th><%= room.name %></th>
+      <% if room.users.exists?(type: 'Student') %>
+        <th><%= room.users.where("type= 'Student'").size %></th>
+        <% else %>
+        <th>No students</th>
+      <% end %>
+      <% if room.users.exists?(type: 'Teacher') %>
+        <th><%= room.users.where("type= 'Teacher'").size %></th>
+        <% else %>
+        <th>No teachers</th>
+      <% end %>
+      <th> <%= link_to 'delete room', "/room/destroy/#{room.id}", method: :delete, data: {confirm: "U sure?"} %> </th>
+    </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+  </tfoot>
+</table>
+  <%= form_tag(room_create_path, method: :post, class: "form-inline") do %>
+      <div class="form-group">
+        <%= label_tag(:name, "class name") %>
+        <%= text_field_tag(:name) %>
+      </div>
+        <%= submit_tag "create class_room by name", class: "btn btn-default" %>
+      <% end %>
+
+<br>
+<br>
+<%#= link_to 'build new class', edit_user_path(current_user) %>
+
+
+</div>

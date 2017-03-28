@@ -1,0 +1,19 @@
+    <%= form_for(:session, url: login_path, html: {class: "form-signin"}) do |f| %>
+      <h2 class="form-signin-heading">log in</h2>
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control" %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password, class: "form-control" %>
+
+      <%= f.radio_button(:type, "Teacher") %>
+      <%= f.label(:type, "log in as a teacher") %>
+      <br>
+      <%= f.radio_button(:type, "Student", checked: true) %>
+      <%= f.label(:type, "log in as a student") %>
+      <br>
+      <%= f.submit "log in", class: "btn btn-primary" %>
+      <br>
+      <br>
+      <p>register <%= link_to 'Sign up', signup_path %></p>
+    <% end %>
