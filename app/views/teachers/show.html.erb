@@ -1,16 +1,16 @@
 <%= render "layouts/header" %>
 <div class="jumbotron">
 
-  <h2>show teacher</h2>
+  <h3>current teacher's name:</h3>
   <p><%= @teacher.name %></p>
 
   <% if !@teacher.class_rooms.empty? %>
-    <h2>show class_room</h2>
+    <h3>class_room which belonged to:</h3>
     <p><%= @teacher.class_rooms.first.name %></p>
 
-    <h2>show students</h2>
+    <h3>students in this class:</h3>
     <ul>
-      <% @teacher.class_rooms.first.students.each do |st| %>
+      <% @teacher.class_rooms.first.users.where("type= 'Student'").each do |st| %>
       <li><%= st.name %></li>
       <% end %>
     </ul>

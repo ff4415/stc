@@ -51,7 +51,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    # debugger
+    User.find(params[:id]).destroy unless params[:id].eql? current_user.id.to_s
     redirect_to user_path(current_user)
   end
 
@@ -75,5 +76,5 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :admin, :password,
     :password_confirmation)
   end
-  
+
 end
