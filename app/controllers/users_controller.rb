@@ -35,20 +35,17 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     @class_rooms = ClassRoom.all
-
   end
 
   def update
-
     class_room = nil
     class_room = ClassRoom.find(params[:classroom][:id]) unless params[:classroom][:id].blank?
     user = User.find(params[:id])
+    user.class_rooms.clear
     if class_room.nil? || user.nil?
-      user.class_rooms.clear
       redirect_to user_path(current_user)
       return
     end
-    user.class_rooms.clear
     user.class_rooms << class_room
     redirect_to user_path(current_user)
   end
@@ -56,10 +53,10 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     redirect_to user_path(current_user)
-
   end
 
   def create_room
+    class_room = nil
     class_room = ClassRoom.find_by(name:params[:name])
     if class_room.nil?
       class_room = ClassRoom.create(name: params[:name])
@@ -78,15 +75,5 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :admin, :password,
     :password_confirmation)
   end
-
-  # def student_params
-  #   params.require(:student).permit(:name, :admin, :password,
-  #   :password_confirmation)
-  # end
-  #
-  # def teacher_params
-  #   params.require(:teacher).permit(:name, :admin, :password,
-  #   :password_confirmation)
-  # end
-
+  
 end
